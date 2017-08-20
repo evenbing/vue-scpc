@@ -1,36 +1,55 @@
-var models = require('../db');
-var express = require('express');
-var router = express.Router();
-var mysql = require('mysql');
-var $sql = require('../sqlMap');
+'use strict';
 
-// 连接数据库
-var conn = mysql.createConnection(models.mysql);
+let func = require('../modules/func');
+let sql = require('../modules/sql');
 
-conn.connect();
-var jsonWrite = function(res, ret) {
-    if(typeof ret === 'undefined') {
-        res.json({
-            code: '1',
-            msg: '操作失败'
+
+module.exports = {
+
+    // 添加用户
+    addOne (req, res) {
+        let name = req.body.name;
+        let pass = req.body.pass;
+        let role = req.body.role;
+        let query = 'INSERT INTO user(id, name, age) VALUES(?, ?, ?)';
+
+
+        func.connPool(query, arr, rows => {
+            res.json({code: 200, msg: 'done'});
         });
-    } else {
-        res.json(ret);
-    }
-};
 
-// 增加用户接口
-router.post('/addUser', (req, res) => {
-    var sql = $sql.user.add;    
-    var params = req.body;    
-    console.log(params);
-    conn.query(sql, [params.username, params.age], function(err, result) {    
-        if (err) {       
-            console.log(err);
-        }        
-        if (result) {
-            jsonWrite(res, result);
-        }
-    })
-});
-module.exports = router;
+    },
+
+    // 登录
+    login (req, res) {
+        console.log('登录处理');
+        let user_name = req.body.username;
+        let pass = req.body.password;
+
+        func.connPool('SELECT * from scglxt_t_ry where rymc = ?', [user_name], (err,rows) => {
+
+            if (rows==null) {
+                res.json({code: 400, msg: '用户名不存在'});
+                return;
+            }
+
+            let password = rows[0].password;
+
+
+            if (pass==password) {
+                let user = {
+                    user_id: rows[0].rymc,
+                    user_name: rows[0].password,
+                };
+
+
+                res.json({code: 200, msg: '登录成功', user: user});
+            } else {
+                res.json({code: 400, msg: '密码错误'});
+            }
+
+        });
+
+    },
+
+};

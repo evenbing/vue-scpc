@@ -16,6 +16,7 @@ module.exports = DB;
 //sql语句执行
 DB.exec=function(sqls, values, after) {
 	var connection = mysql.createConnection(option);
+	
 	connection.connect(function(err) {
 		if (err) {
 			console.error('error connecting: ' + err.stack);

@@ -5,6 +5,9 @@
 ## 框架工具
 	vue+vue-cli+iview+express+mysql
 
+## 后台目录
+	server
+	index.js   入口文件
 ## Build Setup
 
 ``` bash

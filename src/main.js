@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+<<<<<<< HEAD
 import routes from './router'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
@@ -14,12 +15,23 @@ import 'element-ui/lib/theme-default/index.css'
 
 import echarts from 'echarts'
 
+=======
+import router from './router'
+
+import VueRouter from 'vue-router'
+import VueResource from 'vue-resource'
+
+//引入iview-UI的插件使用
+import iView from 'iView'
+import 'iView/dist/styles/iview.css'
+>>>>>>> f674a1a478c56054f50fae2602b4db688ad111f4
 
 Vue.config.productionTip = false
 
 
 // 此处需要use后，this.$http.get或者this.$http.post才可以
 Vue.use(VueRouter)
+<<<<<<< HEAD
 //Vue.use(iView)//更换UI插件
 Vue.use(ElementUI)
 Vue.use(Vuex)
@@ -55,12 +67,21 @@ router.beforeEach((to, from, next) => {
   }
 })
 
+=======
+Vue.use(VueResource)
+Vue.use(iView)
+
+
+>>>>>>> f674a1a478c56054f50fae2602b4db688ad111f4
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+<<<<<<< HEAD
   store,
+=======
+>>>>>>> f674a1a478c56054f50fae2602b4db688ad111f4
   template: '<App/>',
   components: { App }
 })

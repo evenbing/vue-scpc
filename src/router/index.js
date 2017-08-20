@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 import Home from '@/components/index'
 import Main from '@/components/main'
@@ -53,3 +54,26 @@ let routes = [
 
 export default routes;
 
+=======
+import Vue from 'vue'
+import Router from 'vue-router'
+import Hello from '@/components/Hello'
+import Login from '@/components/common/login'
+
+Vue.use(Router)
+
+export default new Router({
+  routes: [
+    {
+      path: '/hello',
+      name: 'Hello',
+      component: Hello
+    },
+    {
+    	path:'/',
+    	name:'Lgoin',
+    	component:Login
+    }
+  ]
+})
+>>>>>>> f674a1a478c56054f50fae2602b4db688ad111f4
