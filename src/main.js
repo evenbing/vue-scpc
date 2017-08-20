@@ -29,7 +29,6 @@ Vue.use(ElementUI)
 Vue.use(Vuex)
 
 //如果使用axios需要将use(vueresource)注释掉否则报错
-Vue.prototype.$http = axios
 Vue.prototype.axios= axios
 Vue.prototype.api = api;
 Vue.prototype.func = func;
