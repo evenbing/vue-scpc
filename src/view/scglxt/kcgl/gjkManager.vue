@@ -1,55 +1,6 @@
 <template>
     <section>
-        <!--工具条-->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" :model="filters">
-                <el-form-item>模糊查询:</el-form-item>
-
-                <el-form-item item-width="300px">
-                    <el-select v-model="filters.columns" multiple placeholder="请选择" >
-                        <el-option  v-for="item in resRows"
-                                :key="item.COLUMN_NAME"
-                                :label="item.COLUMN_CNAME"
-                                :value="item.COLUMN_NAME">
-                        </el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item>
-                    <el-input v-model="filters.name" placeholder="模糊查询"></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-button v-on:click="getResList" type="primary"  icon="search">查询</el-button>
-                </el-form-item>
-                <el-form-item>
-                    <el-button @click="handleAdd" type="primary"  icon="edit">新增</el-button>
-                </el-form-item>
-              <el-form-item>
-                <el-button @click="handleExport" type="primary"  icon="share">导出</el-button>
-              </el-form-item>
-            </el-form>
-        </el-col>
-
-        <!--列表-->
-        <el-table :data="resDatas"  v-loading="listLoading"  stripe border max-height="400" height="500" style="width: 100%;">
-            <el-table-column type="selection" width="50px">
-            </el-table-column>
-            <el-table-column type="index" width="60px">
-            </el-table-column>
-            <el-table-column label="操作" width="200">
-            <template scope="scope">
-              <el-button type="success" size="small" icon="plus"  @click="rkClick(scope.$index, scope.row)">入库</el-button>
-              <el-button type="danger" size="small" icon="minus">出库</el-button>
-            </template>
-            </el-table-column>
-            <el-table-column v-for="row in resRows" key="resConfig" :prop="row.COLUMN_NAME" :label="row.COLUMN_CNAME" :width="row.COLUMNLENGTH?row.COLUMNLENGTH+'px':'150px'" sortable>
-            </el-table-column>
-        </el-table>
-      <!--工具条-->
-      <el-col :span="24" class="toolbar">
-        <el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">批量删除</el-button>
-        <el-pagination layout="total, sizes, prev, pager, next, jumper" @current-change="handleCurrentChange" :page-sizes="[10, 20, 30, 50]" :total="total" style="float:right;">
-        </el-pagination>
-      </el-col>
+      <resList></resList>
       <!--入库单-->
       <el-dialog  size="tiny" title="入库单" v-model="isRkShow" :visible.sync="isRkShow">
         <el-form :model="rkForm" label-width="80px">
@@ -71,7 +22,9 @@
 
 <script>
 
+
     export default{
+        name:'gjkManager',
         data(){
             return{
                 filters: {
@@ -118,7 +71,7 @@
                   this.resDatas = res.data.data;
                   this.total=res.data.data.length;
                   this.listLoading = false;
-              });
+            })
             },
           //导出
           handleExport(){
@@ -153,16 +106,16 @@
                 type: 'success'
               });
               this.getUsers();
-            });
+            })
             }).catch(() => {
-
-              });
+}
+              )
             },
             //点击某行入库时执行
             rkClick(index,row){
               this.isRkShow = true;
               this.rkForm.rkgjMc="懂得多";
-              console.log(row.mc)
+              console.log(row.mc);
               //this.rkForm.rkgjMc=row.mc;
               this.rkForm.rkgjxh=row.cc;
               this.rkForm = Object.assign({}, row);
@@ -172,5 +125,5 @@
             this.getConfig();
             this.getResList();
         }
-    };
+    };;;
 </script>

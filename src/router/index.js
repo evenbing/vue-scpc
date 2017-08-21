@@ -5,9 +5,10 @@ import Login from '@/components/login'
 import notFound from '@/components/notFound'
 import resList from '@/components/resmgr/resList'
 import resAdd from '@/components/resmgr/resAdd'
-import jyryjy from '@/components/scglxt/zlgl/jyryjy'
-import htgl from '@/components/scglxt/xsgl/htManager'
-import gjk from '@/components/scglxt/kcgl/gjkManager'
+import jyryjy from '@/view/scglxt/zlgl/jyryjy'
+import htgl from '@/view/scglxt/xsgl/htManager'
+import gjk from '@/view/scglxt/kcgl/gjkManager'
+import blkcgl from '@/view/scglxt/kcgl/blkcglManager'
 import cltj from '@/view/cltj'
 
 
@@ -47,6 +48,14 @@ let routes = [
     children: [
       { path: '/jgryjg', component: gjk, name: '工具库管理' ,meta:{'tableId':'0111'}},
       { path: '/scqkgz', component: htgl, name: '合同管理' ,meta:{'tableId':'0101'}},
+    ]
+  },{
+    path: '/index',
+    component: Home,
+    name: '库存管理',
+    iconCls: 'el-icon-message',//图标样式class
+    children: [
+      { path: '/blkcgl', component: blkcgl, name: '备料库存管理' },
     ]
   },{path: '*',  component: Home}
 ];
