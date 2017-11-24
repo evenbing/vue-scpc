@@ -49,7 +49,7 @@ export default {
             loginParams.append("password", (this.ruleForm2.checkPass));
 
             this.func.ajaxPost(this.api.userLogin,loginParams, res => {
-                if (res.data.result === "success") {
+                if (res.data.result === "ok") {
                   this.$message({message:'登陆成功',type:'success'});
                   this.logining=true;
 
