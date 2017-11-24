@@ -1,4 +1,4 @@
-<template scope="scope">
+<template slot-scope="scope">
   <el-button v-if="!zddmc" type="success" size="small" @click="handleExportBlData(scope.row.id)">
     导出备料单
   </el-button>

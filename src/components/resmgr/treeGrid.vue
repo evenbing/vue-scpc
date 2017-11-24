@@ -8,7 +8,7 @@
       <el-table-column type="selection" width="55">
       </el-table-column>
       <el-table-column label="操作" v-if="treeType === 'normal'" width="160">
-        <template scope="scope">
+        <template slot-scope="scope">
           <button type="button" class="el-button el-button--default el-button--small">
             <router-link :to="{ path: requestUrl + 'edit', query: {id: scope.row.Oid} }" tag="span">
               编辑
@@ -20,7 +20,7 @@
         </template>
       </el-table-column>
       <el-table-column label="操作" v-if="treeType === 'blkcgl'" width="270" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <el-button v-if="!scope.row.zddmc" type="success" size="small" @click="handleExportBlData(scope.row.id)">
             导出备料单
           </el-button>
@@ -41,7 +41,7 @@
 
       </el-table-column>
       <el-table-column v-for="(column, index) in columns" :key="column.COLUMN_NAME" :label="column.COLUMN_CNAME" :width="180">
-        <template scope="scope">
+        <template slot-scope="scope">
           <span v-if="spaceIconShow(index)" v-for="(space, levelIndex) in scope.row._level" class="ms-tree-space"></span>
           <button class="button is-outlined is-primary is-small" v-if="toggleIconShow(index,scope.row)" @click="toggle(scope.$index)">
             <i v-if="!scope.row._expanded" class="el-icon-caret-right" aria-hidden="true"></i>

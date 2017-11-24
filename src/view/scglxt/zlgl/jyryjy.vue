@@ -32,7 +32,7 @@
             <el-table-column type="selection" width="55">
             </el-table-column>
             <el-table-column label="操作" width="150">
-            <template scope="scope">
+            <template slot-scope="scope">
               <el-button size="small">全部通过</el-button>
               <el-button type="danger" size="small" >部分通过</el-button>
               <el-button type="danger" size="small" >全部返工</el-button>

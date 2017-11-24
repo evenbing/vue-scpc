@@ -36,7 +36,7 @@
             <el-table-column type="index" width="60px">
             </el-table-column>
             <el-table-column label="操作" width="200">
-            <template scope="scope">
+            <template slot-scope="scope">
               <el-button type="success" size="small" icon="plus"  @click="rkClick(scope.$index, scope.row)">入库</el-button>
               <el-button type="danger" size="small" icon="minus">出库</el-button>
             </template>
