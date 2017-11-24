@@ -1,5 +1,5 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
-var path = require('path')
+var path = require('path');
 
 module.exports = {
   build: {
@@ -7,7 +7,7 @@ module.exports = {
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
@@ -27,15 +27,15 @@ module.exports = {
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {  //设置地址映射表 当浏览器访问/api就会跳转到下方target地址      
+    proxyTable: {  //设置地址映射表 当浏览器访问/api就会跳转到下方target地址
         '/api': {
             target: 'http://127.0.0.1:3000/api',
             changeOrigin: true,
-            pathRewrite: {                
+            pathRewrite: {
                 '^/api/': ''
             }
         }
     },
     cssSourceMap: false
   }
-}
+};
