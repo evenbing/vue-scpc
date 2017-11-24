@@ -25,7 +25,7 @@ Vue.config.silent = true;
 
 // 此处需要use后，this.$http.get或者this.$http.post才可以
 Vue.use(VueRouter);
-Vue.use(VueResource);
+// Vue.use(VueResource);
 //Vue.use(iView)//更换UI插件
 Vue.use(ElementUI);
 Vue.use(Vuex);
@@ -44,23 +44,23 @@ const router = new VueRouter({
 
 
 //路由过滤，验证是否登录
-router.beforeEach((to, from, next) => {
-  let user = JSON.parse(sessionStorage.getItem('user'));
-  if(user)
-  {
-    //store.commit('isLogin',true);
-  }
-  if (to.path == '/login') {
-    sessionStorage.removeItem('user');
-  }
-
-  if (!user && to.path != '/login') {
-    next({ path: '/login' })
-  } else {
-
-    next()
-  }
-});
+// router.beforeEach((to, from, next) => {
+//   let user = JSON.parse(sessionStorage.getItem('user'));
+//   if(user)
+//   {
+//     //store.commit('isLogin',true);
+//   }
+//   if (to.path == '/login') {
+//     sessionStorage.removeItem('user');
+//   }
+//
+//   if (!user && to.path != '/login') {
+//     next({ path: '/login' })
+//   } else {
+//
+//     next()
+//   }
+// });
 
 /* eslint-disable no-new */
 new Vue({
