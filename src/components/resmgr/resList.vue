@@ -48,7 +48,14 @@
     <!--工具条-->
     <el-col :span="24" class="toolbar">
       <el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">批量删除</el-button>
-      <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="20" :total="total" style="float:right;">
+      <el-pagination style="float: right"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="pageNumber"
+        :page-sizes="[30, 60, 100, 150]"
+        :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total">
       </el-pagination>
     </el-col>
   </section>
@@ -57,23 +64,32 @@
 <script>
 
   export default{
+    name:'resList',
+    props:{
+      tableId:{
+        type:String
+      }
+    },
     data(){
       return{
         filters: {
           columns:'',
           name:''
         },
-        tableId: this.$route.meta.tableId,
         resRows:[],
         resDatas: [],
         total: 0,
-        page: 1,
+        pageNumber: 1,
+        pageSize: 30,
         listLoading: false,
         sels: [],//列表选中列
         selColumns:[],
       }
     },
     methods:{
+      handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+      },
       //获取表格配置信息
       getConfig(){
         var params = new URLSearchParams();
@@ -87,21 +103,25 @@
         });
       },
       //获取表格数据
-      getResList(){
-        var params = new URLSearchParams();
-        params.append("type", 'vue');
-        params.append("tableId", encodeURIComponent(this.tableId));
+      getResList: function () {
+        var params = new URLSearchParams()
+        params.append('type', 'vue')
+        params.append('tableId', encodeURIComponent(this.tableId))
+        params.append('pageNumber', (this.pageNumber - 1) * this.pageSize + 1)
+        params.append('pageSize', this.pageSize*this.pageNumber)
 
-        if(this.filters.name!=""){
-          params.append("querytype","1");
-          params.append("queryColumn",this.selColumns);
-          params.append("queryKey",this.filters.name);
+        if (this.filters.name != '') {
+          params.append('querytype', '1')
+          params.append('queryColumn', this.selColumns)
+          params.append('queryKey', this.filters.name)
         }
-        this.func.ajaxPost(this.api.getResList,params, res => {
-          this.resDatas = res.data.data;
-          this.total=res.data.data.length;
-          this.listLoading = false;
-        });
+        this.func.ajaxPost(this.api.getResList, params, res => {
+          if (res.data.data.length > 0) {
+            this.resDatas = res.data.data
+            this.total = parseInt(res.data.total)
+            this.listLoading = false
+          }
+        })
       },
       //导出
       handleExport(){
@@ -109,11 +129,10 @@
       },
       //新增按钮
       handleAdd(){
-
         this.$router.push({path:'/resAdd'});
       },
       handleCurrentChange(val) {
-        this.page = val;
+        this.pageNumber = val;
         this.getResList();
       },
       selsChange: function (sels) {
@@ -145,6 +164,12 @@
     mounted() {
       this.getConfig();
       this.getResList();
+    },
+    watch:{
+      tableId() {
+        this.getConfig();
+        this.getResList();
+      }
     }
   };
 </script>
