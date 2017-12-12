@@ -7,11 +7,15 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    isLogin: false
+    isLogin: false,
+    userPower: []
   },
   mutations: {
-    userlogin(state) {
-      state.isLogin=true
+    isLogin: function (state, data) {
+      state.isLogin = data
+    },
+    userPower: function (state, data) {
+      state.userPower = data
     }
   }
 })
