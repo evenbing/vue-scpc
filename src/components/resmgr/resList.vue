@@ -108,7 +108,7 @@
         params.append('type', 'vue')
         params.append('tableId', encodeURIComponent(this.tableId))
         params.append('pageNumber', (this.pageNumber - 1) * this.pageSize + 1)
-        params.append('pageSize', this.pageSize*this.pageNumber)
+        params.append('pageSize', this.pageSize)
 
         if (this.filters.name != '') {
           params.append('querytype', '1')
