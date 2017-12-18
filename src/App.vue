@@ -4,6 +4,11 @@
     </div>
 </template>
 
+<style lang="scss">
+  @import "./assets/css/reset.css";
+
+</style>
+
 <script>
     export default {
       name: 'app',
