@@ -28,7 +28,7 @@
           <template v-for="(item,index) in menuData" v-if="!item.hidden">
             <el-submenu :index="index+''" v-if="!item.isyz==0">
               <template slot="title"><i :class="item.iconCls"></i>{{item.cdmc}}</template>
-              <el-menu-item v-for="child in item.children" :index="child.cddz" :value="child.cdmc" :key="child.cddz" v-if="!child.hidden">{{child.cdmc}}</el-menu-item>
+              <el-menu-item v-for="child in item.children" :index="child.table_id" :value="child.cdmc" :key="child.cddz" v-if="!child.hidden">{{child.cdmc}}</el-menu-item>
             </el-submenu>
           </template>
         </el-menu>

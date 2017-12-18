@@ -24,8 +24,9 @@ let routes = [
     path: '/index',
     component: Home,
     name: '技术管理',
-    iconCls: 'el-icon-message', // 图标样式class
+    iconCls: 'el-icon-date', // 图标样式class
     children: [
+        { path: '', component: resList, name: '', meta: {'tableId': '0104'}},
         { path: '/main', component: Main, name: '信息总览', meta: {'tableId': '0104'}},
         { path: '/grgstj', component: resList, name: '工人工时统计', meta: {'tableId': '0401'}},
         { path: '/cltj', component: resList, name: '材料统计', meta: {'tableId': '0402'}},

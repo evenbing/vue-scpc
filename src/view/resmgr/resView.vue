@@ -1,6 +1,6 @@
 <template>
   <section>
-    <resList-grid :title="title" :tableId="tableId"></resList-grid>
+    <resList :title="title" :tableId="tableId"></resList>
   </section>
 </template>
 
@@ -20,7 +20,6 @@
     },
     watch:{
       '$route' (to, from) {
-        console.log("==="+this.tableId);
         this.tableId = this.$route.meta.tableId;
         this.title = this.$route.name
       }
