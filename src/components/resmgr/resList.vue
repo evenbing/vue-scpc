@@ -1,7 +1,7 @@
 <template>
   <section>
     <!--工具条-->
-    <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+    <el-col :span="24" class="toolbar">
       <el-form :inline="true" :model="filters">
         <el-form-item>模糊查询:</el-form-item>
 
@@ -31,7 +31,7 @@
     </el-col>
 
     <!--列表-->
-    <el-table :data="resDatas"  v-loading="listLoading"  stripe border max-height="400" height="500" style="width: 100%;">
+    <el-table :data="resDatas"  v-loading="listLoading"  stripe border fit>
       <el-table-column type="selection" width="55">
       </el-table-column>
       <el-table-column type="index"  width="70">
@@ -42,7 +42,7 @@
           <el-button type="danger" size="small" >删除</el-button>
         </template>
       </el-table-column>
-      <el-table-column v-for="row in resRows" key="resConfig" :prop="row.COLUMN_NAME" :label="row.COLUMN_CNAME" :width="150" sortable>
+      <el-table-column v-for="row in resRows" key="resConfig" :prop="row.COLUMN_NAME" :label="row.COLUMN_CNAME" sortable>
       </el-table-column>
     </el-table>
     <!--工具条-->

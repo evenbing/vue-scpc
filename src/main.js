@@ -11,7 +11,7 @@ import func from './public/func'
 import api from './api/api'
 import ElementUI from 'element-ui'
 import store from './vuex/store'
-import 'element-ui/lib/theme-chalk/index.css'
+import './my-theme/element-reset.scss'
 // import echarts from 'echarts'
 
 Vue.config.productionTip = false

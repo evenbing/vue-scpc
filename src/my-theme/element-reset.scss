@@ -1,0 +1,11 @@
+@import '~element-ui/lib/theme-chalk/index.css';
+
+$--color-primary: #409EFF !default;
+
+$--color-success: #409EFF !default;
+$--color-warning: #e6a23c !default;
+$--color-danger: #f56c6c !default;
+$--color-info: #909399 !default;
+.el-form-item.is-success .el-input__inner, .el-form-item.is-success .el-input__inner:focus, .el-form-item.is-success .el-textarea__inner, .el-form-item.is-success .el-textarea__inner:focus{
+  border-color: #d5d9e5;
+}

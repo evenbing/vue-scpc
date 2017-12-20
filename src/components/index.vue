@@ -1,8 +1,8 @@
 <template>
-  <el-row class="container">
+  <el-row ref="container" class="container">
     <el-col :span="24" class="header">
       <el-col :span="8" class="logo">
-        <img src="static/logo.png">{{collapsed?'':sysName}}
+        <img src="../../static/logo.png">{{collapsed?'':sysName}}
       </el-col>
       <el-col :span="10">
         <div class="tools" @click.prevent="collapse">
@@ -24,11 +24,11 @@
     <el-col :span="24" class="main">
       <aside :class="collapsed?'menu-collapsed':'menu-expanded'">
         <!--导航菜单-->
-        <el-menu :default-active="menuData" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect"  unique-opened router v-show="!collapsed">
+        <el-menu :default-active="menuData" unique-opened  v-show="!collapsed" background-color="#eef1f6" text-color="#48576a">
           <template v-for="(item,index) in menuData" v-if="!item.hidden">
-            <el-submenu :index="index+''" v-if="!item.isyz==0">
-              <template slot="title"><i :class="item.iconCls"></i>{{item.cdmc}}</template>
-              <el-menu-item v-for="child in item.children" :index="child.table_id" :value="child.cdmc" :key="child.cddz" v-if="!child.hidden">{{child.cdmc}}</el-menu-item>
+            <el-submenu :index="index" v-if="!item.isyz==0">
+              <template slot="title"><i class="el-icon-tickets"></i>{{item.cdmc}}</template>
+              <el-menu-item v-for="child in item.children" @click="menuItemClick" :value="child.cdmc" :index="child.cddz" :key="child.cddz"  :route="child.table_id" v-if="!child.hidden">{{child.cdmc}}</el-menu-item>
             </el-submenu>
           </template>
         </el-menu>
@@ -38,7 +38,6 @@
 <section class="content-container">
   <div class="grid-content bg-purple-light">
     <el-col :span="24" class="breadcrumb-container">
-      <!--<strong class="title">{{$route.name}}</strong>-->
       <el-breadcrumb separator="/" class="breadcrumb-container">
 
         <el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
@@ -77,11 +76,16 @@
   export default {
     data() {
       return {
-        sysName:'兴隆模具生产管理系统',
+        // sysName:'兴隆模具生产管理系统',
+        sysName:'111',
         collapsed:false,
         sysUserName: '',
         sysUserAvatar: '',
         dialogFormVisible: false,
+        selectMenu:{
+          parentName: '技术管理',
+          name: '订单管理'
+        },
         menuData:[],
         form: {
           oldpwd: '',
@@ -93,14 +97,6 @@
     methods: {
       onSubmit() {
         console.log('submit!');
-      },
-      handleopen() {
-        //console.log('handleopen');
-      },
-      handleclose() {
-        //console.log('handleclose');
-      },
-      handleselect: function (a, b) {
       },
       //折叠导航栏
       collapse:function(){
@@ -130,12 +126,16 @@
       }).catch(() => {
 
         });
-
       },
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
+      menuItemClick(item) {
+        console.log(item)
+        this.selectMenu.name = item.$attrs.value
+        if(item.route!=undefined && item.route!=null){
+          this.$router.push({ path: "/resview/"+item.route });
+        }else{
+          this.$router.push({ path: "/" + item.index });
+        }
       }
-
     },
     mounted() {
       var user = sessionStorage.getItem('user');
@@ -145,20 +145,22 @@
         this.sysUserAvatar = user.avatar || '';
         this.loadMenu(user.bzid);
       }
+      var offsetHeight = window.innerHeight
+      this.$refs.container.style.height = (offsetHeight - 60) + 'px'
     }
   }
 
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .heng_menu{
     background: #20a0ff;
     color:#fff;
   }
   .container {
-    position: absolute;
     top: 0px;
     bottom: 0px;
+    height: 900px;
     width: 100%;
   .header {
     height: 60px;
@@ -182,7 +184,6 @@
   }
   }
   .logo {
-  //width:230px;
     height:60px;
     font-size: 30px;
     padding-left:20px;
@@ -213,17 +214,13 @@
   }
   .main {
     display: flex;
-  // background: #324057;
-    position: absolute;
     top: 60px;
     bottom: 0px;
+    height: 100%;
     overflow: hidden;
   aside {
     flex:0 0 230px;
     width: 230px;
-  // position: absolute;
-  // top: 0px;
-  // bottom: 0px;
   .el-menu{
     height: 100%;
   }
@@ -236,7 +233,6 @@
     position:absolute;
     top:0px;
     left:60px;
-    z-index:99999;
     height:auto;
     display:none;
   }
@@ -252,17 +248,10 @@
     width: 230px;
   }
   .content-container {
-  // background: #f1f2f7;
     flex:1;
-  // position: absolute;
-  // right: 0px;
-  // top: 0px;
-  // bottom: 0px;
-  // left: 230px;
     overflow-y: scroll;
     padding: 20px;
   .breadcrumb-container {
-  //margin-bottom: 15px;
   .title {
     width: 200px;
     float: left;

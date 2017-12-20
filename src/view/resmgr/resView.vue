@@ -9,7 +9,7 @@
   export default{
     data(){
       return{
-        tableId:this.$route.meta.tableId,
+        tableId:this.$route.params.tableId,
         title:this.$route.name
       }
     },
@@ -20,8 +20,8 @@
     },
     watch:{
       '$route' (to, from) {
-        this.tableId = this.$route.meta.tableId;
-        this.title = this.$route.name
+        console.log(to)
+        this.tableId = to.params.tableId;
       }
     }
   };
