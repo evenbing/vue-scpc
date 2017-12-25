@@ -14,12 +14,7 @@ import blkcgl from '@/view/scglxt/kcgl/blkcglManager'
 import jgryjg from '@/view/scglxt/scgl/jgryjg'
 
 let routes = [
-  {
-    path: '/login',
-    name: '登录',
-    component: Login,
-    hidden: true
-  },
+
   {
     path: '/',
     component: Home,
@@ -31,6 +26,12 @@ let routes = [
         { path: '/resview/:tableId', hidden: true, component: resView, name: '数据列表'},
         { path: '/resAdd', hidden: true, component: resAdd, name: '新增'}
     ]
+  },
+  {
+    path: '/login',
+    name: '登录',
+    component: Login,
+    hidden: true
   },
   {path: '/404', component: notFound},
   {path: '/test', component: Test},

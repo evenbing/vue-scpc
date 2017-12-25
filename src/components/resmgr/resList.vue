@@ -7,11 +7,7 @@
 
         <el-form-item item-width="300px">
           <el-select v-model="selColumns" multiple placeholder="请选择" >
-            <el-option
-              v-for="item in resRows"
-              :key="item.COLUMN_NAME"
-              :label="item.COLUMN_CNAME"
-              :value="item.COLUMN_NAME">
+            <el-option v-for="item in resRows" :key="item.COLUMN_NAME" :label="item.COLUMN_CNAME"  :value="item.COLUMN_NAME">
             </el-option>
           </el-select>
         </el-form-item>
@@ -19,43 +15,38 @@
           <el-input v-model="filters.name" placeholder="模糊查询"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button v-on:click="getResList" type="primary"  icon="search">查询</el-button>
+          <el-button v-on:click="getResList" type="primary"  size="small" icon="search">查询</el-button>
         </el-form-item>
         <el-form-item>
-          <el-button @click="handleAdd" type="primary"  icon="edit">新增</el-button>
+          <el-button @click="handleAdd" type="primary"  size="small" icon="edit">新增</el-button>
         </el-form-item>
         <el-form-item>
-          <el-button @click="handleExport" type="primary"  icon="share">导出</el-button>
+          <el-button @click="handleExport" type="primary"  size="small" icon="share">导出</el-button>
         </el-form-item>
       </el-form>
     </el-col>
 
     <!--列表-->
-    <el-table :data="resDatas"  v-loading="listLoading"  stripe border fit>
-      <el-table-column type="selection" width="55">
+    <el-table :data="resDatas"  v-loading="listLoading"  header-cell-class-name="table_th"  stripe border :max-height="tableHeight" style="width: 100%;">
+      <el-table-column fixed type="selection" width="55" align="center">
       </el-table-column>
-      <el-table-column type="index"  width="70">
+      <el-table-column fixed type="index"  width="50" align="center">
       </el-table-column>
-      <el-table-column label="操作" width="150">
+      <el-table-column fixed label="操作" width="150" align="center">
         <template slot-scope="scope">
           <el-button size="small">编辑</el-button>
           <el-button type="danger" size="small" >删除</el-button>
         </template>
       </el-table-column>
-      <el-table-column v-for="row in resRows" key="resConfig" :prop="row.COLUMN_NAME" :label="row.COLUMN_CNAME" sortable>
+      <el-table-column v-for="(row,index) in resRows" key="resConfig" :prop="row.COLUMN_NAME"
+      :fixed="row.IS_FROZEN == 1" :label="row.COLUMN_CNAME" :min-width="(row.COLUMNLENGTH != '')?row.COLUMNLENGTH:150" sortable>
       </el-table-column>
     </el-table>
     <!--工具条-->
     <el-col :span="24" class="toolbar">
       <el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">批量删除</el-button>
-      <el-pagination style="float: right"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="pageNumber"
-        :page-sizes="[30, 60, 100, 150]"
-        :page-size="pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="total">
+      <el-pagination background style="float: right" @size-change="handleSizeChange" @current-change="handleCurrentChange"  :current-page="pageNumber"
+        :page-sizes="[30, 60, 100, 150]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </el-col>
   </section>
@@ -84,6 +75,7 @@
         listLoading: false,
         sels: [],//列表选中列
         selColumns:[],
+        tableHeight:460
       }
     },
     methods:{
@@ -129,7 +121,7 @@
       },
       //新增按钮
       handleAdd(){
-        this.$router.push({path:'/resAdd'});
+        this.$router.push({path:'/resAdd',query:{tableId:this.tableId}});
       },
       handleCurrentChange(val) {
         this.pageNumber = val;
@@ -164,6 +156,8 @@
     mounted() {
       this.getConfig();
       this.getResList();
+      var offsetHeight = window.innerHeight
+      this.tableHeight = offsetHeight - 220
     },
     watch:{
       tableId() {
@@ -173,3 +167,16 @@
     }
   };
 </script>
+<style lang="scss">
+  .table_th{
+    text-align: center;
+    border-right: 0.5px solid #cad0d7;
+    background:rgba(0,27,110,0.14);
+    div{
+      text-align: center;
+      font-weight: bold;
+      color: #919cb5;
+      padding: 0;
+    }
+  }
+</style>

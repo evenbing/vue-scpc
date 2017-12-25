@@ -10,9 +10,9 @@ module.exports = {
   getMenu: host + '/common_loadMenuTree.action',
     // res
   getResConfig: host + '/resmgr_getTableColumns.action',
-  getTreeTableData: host + '/resmgr_getTreeTableData.action',
-
   getResList: host + '/resmgr_queryTableData.action',
+  getTreeTableData: host + '/resmgr_getTreeTableData.action',
+  getComboboxData: host + 'resmgr_getComboboxData.action',
 
     // 导出
   exportData: host + '/resmgr_exportResourceData.action',
